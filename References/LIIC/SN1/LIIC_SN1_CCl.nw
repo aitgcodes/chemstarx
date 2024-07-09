@@ -1,0 +1,60 @@
+echo
+
+start molecule
+
+title "Title"
+charge -1
+
+geometry units angstroms print xyz autosym
+ I                     0.00891508    -1.36966173    -0.00009725
+ Cl                   -0.00171797     3.89266663    -0.00016041
+ C                     0.01104817     0.89269380     0.00004266
+ H                     0.47213198     1.18822088    -0.94140132
+ H                    -1.03409036     1.19059461     0.07170131
+ H                     0.59626071     1.18780486     0.86991495                                                
+end
+
+basis
+  * library def2-svpd
+end
+
+ecp
+ I library "def2-ecp" 
+end
+
+dft
+xc b3lyp
+mult 1
+end
+
+driver
+default 
+maxiter 99
+end
+
+python
+from nwgeom import *
+geom = ''' 
+    geometry noprint adjust
+        zcoord
+            bond  1 3   %f ci  constant
+        end
+    end 
+'''
+x0=3.000
+y0=1.801
+xmax=2.171
+ymax=3.000
+npts=20
+ymin = y0 - (ymax-y0)/npts
+results = scan_input(geom, \
+[ymin], 
+[ymax],
+npts, 'dft', task_optimize)
+fp=open("sn1_ccl.dat","w")
+for i in range(0,len(results)):
+    fp.write(f'{results[i][0][0]} {results[i][1]} \n')
+fp.close()
+end
+
+task python
