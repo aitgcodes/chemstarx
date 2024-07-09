@@ -1,0 +1,362 @@
+ argument  1 = LIIC_SN1_CCl.nw
+
+
+
+============================== echo of input deck ==============================
+echo
+
+start molecule
+
+title "Title"
+charge -1
+
+geometry units angstroms print xyz autosym
+ I                     0.00000000     0.00000000     1.88716539
+ Cl                    0.00000000     0.00000000    -3.03660307
+ C                     0.00000000     0.00000000    -1.11283396
+ H                     0.74342354     0.74342354    -0.83714093
+ H                    -1.01553544     0.27211190    -0.83714093
+ H                     0.27211190    -1.01553544    -0.83714093
+end
+
+basis
+  * library def2-svpd
+end
+
+ecp
+ I library "def2-ecp"
+end
+
+dft
+xc b3lyp
+mult 1
+end
+
+driver
+default
+maxiter 99
+end
+
+python
+from nwgeom import *
+geom = '''
+    geometry noprint adjust
+        zcoord
+            bond  1 3   %f ci  constant
+        end
+    end
+'''
+x0=3.000
+y0=1.801
+xmax=2.171
+ymax=3.000
+npts=20
+ymin = y0 - (ymax-y0)/npts
+results = scan_input(geom, \
+[ymin],
+[ymax],
+npts, 'dft', task_optimize)
+fp=open("sn1_ccl.dat","w")
+for i in range(0,len(results)):
+    fp.write(f'{results[i][0][0]} {results[i][1]} \n')
+fp.close()
+
+task python
+================================================================================
+
+
+                                         
+                                         
+
+
+             Northwest Computational Chemistry Package (NWChem) 7.2.2
+             --------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                              Copyright (c) 1994-2022
+                       Pacific Northwest National Laboratory
+                            Battelle Memorial Institute
+
+             NWChem is an open-source computational chemistry package
+                        distributed under the terms of the
+                      Educational Community License (ECL) 2.0
+             A copy of the license is included with this distribution
+                              in the LICENSE.TXT file
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were developed at the
+            EMSL at Pacific Northwest National Laboratory, a multiprogram
+            national laboratory, operated for the U.S. Department of Energy
+            by Battelle under Contract Number DE-AC05-76RL01830. Support
+            for this work was provided by the Department of Energy Office
+            of Biological and Environmental Research, Office of Basic
+            Energy Sciences, and the Office of Advanced Scientific Computing.
+
+
+           Job information
+           ---------------
+
+    hostname        = iiserb-lab4
+    program         = nwchem
+    date            = Tue Jul  9 10:19:27 2024
+
+    compiled        = Fri_Jun_07_08:00:10_2024
+    source          = /home/conda/feedstock_root/build_artifacts/nwchem_1717738152402/work
+    nwchem branch   = 7.2.2
+    nwchem revision = 64ba0f0
+    ga revision     = 5.8.0
+    use scalapack   = T
+    input           = LIIC_SN1_CCl.nw
+    prefix          = molecule.
+    data base       = ./molecule.db
+    status          = startup
+    nproc           =        4
+    time left       =     -1s
+
+
+
+           Memory information
+           ------------------
+
+    heap     =   26214394 doubles =    200.0 Mbytes
+    stack    =   26214399 doubles =    200.0 Mbytes
+    global   =   52428800 doubles =    400.0 Mbytes (distinct from heap & stack)
+    total    =  104857593 doubles =    800.0 Mbytes
+    verify   = yes
+    hardfail = no 
+
+
+           Directory information
+           ---------------------
+
+  0 permanent = .
+  0 scratch   = .
+
+
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+                                       Title
+                                       -----
+
+ Scaling coordinates for geometry "geometry" by  1.889725989
+ (inverse scale =  0.529177249)
+
+ C3V symmetry detected
+
+          ------
+          auto-z
+          ------
+  autoz: The atoms group into disjoint clusters
+ cluster   1:    1
+ cluster   2:    2    3    4    5    6
+ Connecting clusters   1   2 via atoms    1    4 r = 2.92
+  autoz: regenerating connections with new bonds
+  no constraints, skipping    0.0000000000000000     
+  no constraints, skipping    0.0000000000000000     
+
+
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 I                   53.0000    -0.00000000    -0.00000000     1.39084783
+    2 Cl                  17.0000     0.00000000     0.00000000    -3.53292063
+    3 C                    6.0000     0.00000000     0.00000000    -1.60915152
+    4 H                    1.0000     0.74342354     0.74342354    -1.33345849
+    5 H                    1.0000    -1.01553544     0.27211190    -1.33345849
+    6 H                    1.0000     0.27211190    -1.01553544    -1.33345849
+
+      Atomic Mass 
+      ----------- 
+
+      I                126.900400
+      Cl                34.968850
+      C                 12.000000
+      H                  1.007825
+
+
+ Effective nuclear repulsion energy (a.u.)     230.5037123431
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000    -0.0000000000
+
+      Symmetry information
+      --------------------
+
+ Group name             C3v       
+ Group number             17
+ Group order               6
+ No. of unique centers     4
+
+      Symmetry unique atoms
+
+     1    2    3    4
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     4                       2.92014
+    2 Stretch                  2     3                       1.92377
+    3 Stretch                  3     4                       1.08691
+    4 Stretch                  3     5                       1.08691
+    5 Stretch                  3     6                       1.08691
+    6 Bend                     1     4     3                83.59106
+    7 Bend                     2     3     4               104.69357
+    8 Bend                     2     3     5               104.69357
+    9 Bend                     2     3     6               104.69357
+   10 Bend                     4     3     5               113.79672
+   11 Bend                     4     3     6               113.79672
+   12 Bend                     5     3     6               113.79672
+   13 Torsion                  1     4     3     2         180.00000
+   14 Torsion                  1     4     3     5          66.28249
+   15 Torsion                  1     4     3     6         -66.28249
+
+
+            XYZ format geometry
+            -------------------
+     6
+ geometry
+ I                    -0.00000000    -0.00000000     1.39084783
+ Cl                    0.00000000     0.00000000    -3.53292063
+ C                     0.00000000     0.00000000    -1.60915152
+ H                     0.74342354     0.74342354    -1.33345849
+ H                    -1.01553544     0.27211190    -1.33345849
+ H                     0.27211190    -1.01553544    -1.33345849
+
+ ==============================================================================
+                                internuclear distances
+ ------------------------------------------------------------------------------
+       center one      |      center two      | atomic units |  angstroms
+ ------------------------------------------------------------------------------
+    3 C                |   2 Cl               |     3.63540  |     1.92377
+    4 H                |   3 C                |     2.05395  |     1.08691
+    5 H                |   3 C                |     2.05395  |     1.08691
+    6 H                |   3 C                |     2.05395  |     1.08691
+ ------------------------------------------------------------------------------
+                         number of included internuclear distances:          4
+ ==============================================================================
+
+
+
+ ==============================================================================
+                                 internuclear angles
+ ------------------------------------------------------------------------------
+        center 1       |       center 2       |       center 3       |  degrees
+ ------------------------------------------------------------------------------
+    2 Cl               |   3 C                |   4 H                |   104.69
+    2 Cl               |   3 C                |   5 H                |   104.69
+    2 Cl               |   3 C                |   6 H                |   104.69
+    4 H                |   3 C                |   5 H                |   113.80
+    4 H                |   3 C                |   6 H                |   113.80
+    5 H                |   3 C                |   6 H                |   113.80
+ ------------------------------------------------------------------------------
+                            number of included internuclear angles:          6
+ ==============================================================================
+
+
+
+  library name resolved from: environment
+  library file name is: </home/iiserb/anaconda3/envs/chemstarx/share/nwchem/libraries/>
+  
+
+
+ Summary of "ao basis" -> "" (cartesian)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ *                         def2-svpd                  on all atoms 
+
+
+  library name resolved from: environment
+  library file name is: </home/iiserb/anaconda3/envs/chemstarx/share/nwchem/libraries/>
+  
+                 ECP       "ecp basis" -> "" (cartesian)
+                -----
+  I (Iodine) Replaces    28 electrons
+  -----------------------------------
+             Channel    R-exponent     Exponent     Coefficients
+         ------------ ---------------------------------------------------------
+  1 U L       Both         2.00       19.458609     -21.842040
+  1 U L       Both         2.00       19.349260     -28.468191
+  1 U L       Both         2.00        4.823767      -0.243713
+  1 U L       Both         2.00        4.884315      -0.320804
+
+  2 U-s       Both         2.00       40.015835      49.994293
+  2 U-s       Both         2.00       17.429747     281.025317
+  2 U-s       Both         2.00        9.005484      61.573326
+  2 U-s       Both         2.00       19.458609      21.842040
+  2 U-s       Both         2.00       19.349260      28.468191
+  2 U-s       Both         2.00        4.823767       0.243713
+  2 U-s       Both         2.00        4.884315       0.320804
+
+  3 U-p       Both         2.00       15.355466      67.442841
+  3 U-p       Both         2.00       14.971833     134.881137
+  3 U-p       Both         2.00        8.960164      14.675051
+  3 U-p       Both         2.00        8.259096      29.375666
+  3 U-p       Both         2.00       19.458609      21.842040
+  3 U-p       Both         2.00       19.349260      28.468191
+  3 U-p       Both         2.00        4.823767       0.243713
+  3 U-p       Both         2.00        4.884315       0.320804
+
+  4 U-d       Both         2.00       15.068908      35.439529
+  4 U-d       Both         2.00       14.555322      53.176057
+  4 U-d       Both         2.00        6.718647       9.067195
+  4 U-d       Both         2.00        6.456393      13.206937
+  4 U-d       Both         2.00        1.191779       0.089335
+  4 U-d       Both         2.00        1.291157       0.052380
+  4 U-d       Both         2.00       19.458609      21.842040
+  4 U-d       Both         2.00       19.349260      28.468191
+  4 U-d       Both         2.00        4.823767       0.243713
+  4 U-d       Both         2.00        4.884315       0.320804
+
+
+                               NWChem Python program
+                               ---------------------
+
+from nwgeom import *
+geom = '''
+    geometry noprint adjust
+        zcoord
+            bond  1 3   %f ci  constant
+        end
+    end
+'''
+x0=3.000
+y0=1.801
+xmax=2.171
+ymax=3.000
+npts=20
+ymin = y0 - (ymax-y0)/npts
+results = scan_input(geom, \
+[ymin],
+[ymax],
+npts, 'dft', task_optimize)
+fp=open("sn1_ccl.dat","w")
+for i in range(0,len(results)):
+    fp.write(f'{results[i][0][0]} {results[i][1]} \n')
+fp.close()
+
+task python
+
