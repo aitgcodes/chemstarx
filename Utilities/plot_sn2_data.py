@@ -30,14 +30,14 @@ def plot_pes_data(file_path, plot_type='x'):
 
     if plot_type == 'x':
         plt.plot(x, energy, 'o-')
-        plt.xlabel('X')
+        plt.xlabel('CI Bond Distance')
         plt.ylabel('Energy(in kcal/mol)')
-        plt.title('Energy vs X')
+        plt.title('Energy vs CI Bond Distance')
     elif plot_type == 'y':
         plt.plot(y, energy, 'o-')
-        plt.xlabel('Y')
+        plt.xlabel('CCl Bond Distance')
         plt.ylabel('Energy')
-        plt.title('Energy vs Y')
+        plt.title('Energy vs CCl Bond Distance')
     else:
         raise ValueError("Invalid plot_type. Choose 'x' or 'y'.")
 
