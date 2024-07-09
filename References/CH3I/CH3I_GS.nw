@@ -1,0 +1,35 @@
+echo
+
+start molecule
+
+title "Title"
+charge 0
+
+geometry units angstroms print xyz autosym
+   I       -1.43431        2.42915       -0.35100
+   C       -0.73026        0.47537        0.03393
+   H       -1.08028       -0.22672       -0.72889
+   H       -1.08028        0.11510        1.00606
+   H        0.36353        0.44503        0.03991
+end
+
+basis
+  * library def2-svpd
+end
+
+ecp
+I library "def2-ecp" 
+end
+
+dft
+xc b3lyp
+mult 1
+end
+
+driver
+default 
+maxiter 99
+xyz CH3I_GS
+end
+
+task dft optimize
