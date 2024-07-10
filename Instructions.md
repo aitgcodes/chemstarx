@@ -1,9 +1,11 @@
-Step-1: Set-up 
+# Instructions
+
+## Step-1: Set-up 
 
 - Open terminal
 - Run `conda activate chemstarx`
-------------------------------
-Step-2: Reactant optimization
+
+## Step-2: Reactant optimization
 
 - Open Avogadro
 - Build Methyliodide molecule
@@ -12,8 +14,8 @@ Step-2: Reactant optimization
 	Extensions > NWChem
 - Add required blocks of Basis sets, Iodine basis and XYZ output from "utilites" file
 - Run `mpirun -np 4 nwchem CH3I_GS.nw > CH3I_GS.nwo` in terminal
-------------------------------------------------------------------------------------------
-Step-3: Product optimization
+
+## Step-3: Product optimization
 
 - Open Avogadro
 - Build Methylchloride molecule
@@ -22,8 +24,8 @@ Step-3: Product optimization
 	Extensions > NWChem
 - Add required blocks of Basis sets and XYZ output from "utilites" file 
 - Run `mpirun -np 4 nwchem CH3Cl_GS.nw > CH3Cl_GS.nwo` in terminal
---------------------------------------------------------------------------
-Step-4: PES preliminary
+
+## Step-4: PES preliminary
 
 - Open Avogadro
 - Build CH3I + Cl- molecule
@@ -31,7 +33,7 @@ Step-4: PES preliminary
 - Generate input for geometry optimization using Avogadro NWCHem template
 - Set C-Cl distance to 3.000 angstroms 
 - Add required blocks of Basis sets, Iodine basis, XYZ output and geometric constraints from "utilites" file
-- Run `mpirun -np 4 nwchem CH3I_Cl.nw > CH3I_Cl.nwo` in termina 
+- Run `mpirun -np 4 nwchem CH3I_Cl.nw > CH3I_Cl.nwo` in terminal
 
 - Open Avogadro
 - Build CH3Cl + I- molecule
@@ -40,8 +42,8 @@ Step-4: PES preliminary
 - Set C-I distance to 3.000 angstroms
 - Add required blocks of Basis sets, Iodine basis, XYZ output and geometric constraints from "utilites" file
 - Run `mpirun -np 4 nwchem CH3I_Cl.nw > CH3I_Cl.nwo` in terminal
----------------------------------------------------------------------------------------
-Step-5: LIIC Calculation
+
+## Step-5: LIIC Calculation
 
 - Open the latest XYZ file for CH3I_Cl
 - Build Menu > Cartesian Editor > Sort bt "Element" 
@@ -54,8 +56,8 @@ Step-5: LIIC Calculation
 - Copy Python block for LIIC from "utilities"
 - Fill in appropirate values for x0, y0, xmax, xmin and npts
 - mpirun -np 4 nwchem CH3Cl_I_PES1.nw > CH3Cl_I_PES1.nwo
--------------------------------------------------------------------
-Step-6: 2D PES Calculation 
+
+## Step-6: 2D PES Calculation 
 
 - Open the latest XYZ file for CH3I_Cl
 - Build Menu > Cartesian Editor > Sort bt "Element" 

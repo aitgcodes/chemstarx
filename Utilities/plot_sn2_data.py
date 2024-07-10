@@ -41,6 +41,8 @@ def plot_pes_data(file_path, plot_type='x'):
     else:
         raise ValueError("Invalid plot_type. Choose 'x' or 'y'.")
 
+    ax = plt.gca()
+    ax.ticklabel_format(useOffset=False)
     plt.grid(True)
     plt.show()
 
